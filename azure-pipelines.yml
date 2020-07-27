@@ -21,6 +21,14 @@ steps:
     versionSpec: $(node_version)
   displayName: 'Install Node.js'
 
+- task:  PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: '**/TEST-RESULTS.xml'
+
+- script: npm test
+
 - script: |
     npm install
     npm run build
